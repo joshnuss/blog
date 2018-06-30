@@ -13,10 +13,16 @@ defmodule Blog.Post do
     timestamps()
   end
 
-  @doc false
-  def changeset(post, attrs) do
-    post
+  def create(attrs) do
+    %__MODULE__{}
     |> cast(attrs, [:title, :permalink, :subtitle, :tags, :body])
+    |> validate_required([:title, :permalink])
+    |> unique_constraint(:permalink)
+  end
+
+  def update(post, attrs) do
+    post
+    |> cast(attrs, [:title, :permalink, :subtitle, :tags, :body, :published_at])
     |> validate_required([:title, :permalink])
     |> unique_constraint(:permalink)
   end
