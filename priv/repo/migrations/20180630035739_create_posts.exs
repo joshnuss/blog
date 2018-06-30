@@ -13,6 +13,7 @@ defmodule Blog.Repo.Migrations.CreatePosts do
       timestamps()
     end
 
-    create unique_index(:posts, :permalink)
+    create(unique_index(:posts, :permalink))
+    create(index(:posts, :published_at))
   end
 end
