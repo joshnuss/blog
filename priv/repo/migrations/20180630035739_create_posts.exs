@@ -3,7 +3,8 @@ defmodule Blog.Repo.Migrations.CreatePosts do
 
   def change do
     create table(:posts) do
-      add(:title, :string)
+      add(:title, :string, null: false)
+      add(:permalink, :string, null: false)
       add(:subtitle, :string)
       add(:tags, {:array, :string})
       add(:body, :text)
@@ -11,5 +12,7 @@ defmodule Blog.Repo.Migrations.CreatePosts do
 
       timestamps()
     end
+
+    create unique_index(:posts, :permalink)
   end
 end
