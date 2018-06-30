@@ -41,16 +41,16 @@ defmodule Blog do
     Repo.get_by(Post, opts)
   end
 
-  def find_posts_by_year(year) do
+  def find_posts_for_year(year) do
     find_posts_between({year, 1, 1}, {year, 12, 31})
   end
 
-  def find_posts_by_month(year, month) do
+  def find_posts_for_month(year, month) do
     days_in_month = Calendar.ISO.days_in_month(year, month)
     find_posts_between({year, month, 1}, {year, month, days_in_month})
   end
 
-  def find_posts_by_date(year: year, month: month, day: day) do
+  def find_posts_for_date(year: year, month: month, day: day) do
     find_posts_between({year, month, day}, {year, month, day})
   end
 
