@@ -16,7 +16,8 @@ defmodule Blog.Post do
   @doc false
   def changeset(post, attrs) do
     post
-    |> cast(attrs, [:title, :subtitle, :tags, :body, :published_at])
-    |> validate_required([:title, :subtitle, :tags, :body, :published_at])
+    |> cast(attrs, [:title, :permalink, :subtitle, :tags, :body])
+    |> validate_required([:title, :permalink])
+    |> unique_constraint(:permalink)
   end
 end
