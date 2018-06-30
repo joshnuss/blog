@@ -2,13 +2,12 @@ defmodule Blog.Post do
   use Ecto.Schema
   import Ecto.Changeset
 
-
   schema "posts" do
-    field :body, :string
-    field :published_at, :naive_datetime
-    field :subtitle, :string
-    field :tags, {:array, :string}
-    field :title, :string
+    field(:body, :string)
+    field(:published_at, :naive_datetime)
+    field(:subtitle, :string)
+    field(:tags, {:array, :string})
+    field(:title, :string)
 
     timestamps()
   end
