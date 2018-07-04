@@ -62,7 +62,8 @@ defmodule Blog do
       from(
         p in Post,
         where: p.published_at >= ^from_time and p.published_at <= ^to_time,
-        select: p
+        order_by: [desc: p.published_at],
+        select: p,
       )
 
     Repo.all(query)
