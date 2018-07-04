@@ -30,8 +30,52 @@ defmodule Blog.Schema do
 
   query do
     field :posts, list_of(:post) do
+      # todo add filters by tag, search
+      # sort by published_at desc
       resolve fn _, _ ->
         {:ok, Post |> Repo.all}
+      end
+    end
+
+    @desc "Find posts by year"
+    field :posts_by_year, list_of(:post) do
+
+      @desc "The year to filter by"
+      arg :year, :integer
+
+      resolve fn args, _ ->
+        {:ok, Blog.find_posts_for_year(args.year)}
+      end
+    end
+
+    @desc "Find posts by month"
+    field :posts_by_month, list_of(:post) do
+
+      @desc "The year to filter by"
+      arg :year, :integer
+
+      @desc "The month to filter by"
+      arg :month, :integer
+
+      resolve fn args, _ ->
+        {:ok, Blog.find_posts_for_month(args.year, args.month)}
+      end
+    end
+
+    @desc "Find posts by date"
+    field :posts_by_date, list_of(:post) do
+
+      @desc "The year to filter by"
+      arg :year, :integer
+
+      @desc "The month to filter by"
+      arg :month, :integer
+
+      @desc "The day to filter by"
+      arg :day, :integer
+
+      resolve fn args, _ ->
+        {:ok, Blog.find_posts_for_date(args.year, args.month, args.day)}
       end
     end
   end
