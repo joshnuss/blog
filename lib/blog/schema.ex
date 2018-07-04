@@ -3,6 +3,8 @@ defmodule Blog.Schema do
 
   alias Blog.{Post, Repo}
 
+  import_types(Absinthe.Type.Custom)
+
   @desc "A blog post"
   object :post do
     @desc "The post's heading"
@@ -24,8 +26,8 @@ defmodule Blog.Schema do
     @desc "The main content of the post"
     field :body, :string
 
-    #@desc "The date/time the post was published"
-    #field :published_at, :datetime
+    @desc "The date/time the post was published"
+    field :published_at, :naive_datetime
   end
 
   query do
