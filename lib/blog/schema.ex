@@ -13,10 +13,6 @@ defmodule Blog.Schema do
     @desc "A unique identifier, usually based on the title"
     field :permalink, :string
 
-    #@desc "The permanent URL of the page"
-    #field :url, :string do
-    #end
-
     @desc "The post's subheading"
     field :subtitle, :string
 
