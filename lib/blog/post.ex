@@ -5,9 +5,9 @@ defmodule Blog.Post do
   schema "posts" do
     field(:title, :string)
     field(:permalink, :string)
-    field(:subtitle, :string)
-    field(:tags, {:array, :string})
-    field(:body, :string)
+    field(:subtitle, :string, default: "")
+    field(:tags, {:array, :string}, default: [])
+    field(:body, :string, default: "")
     field(:published_at, :naive_datetime)
 
     timestamps()
