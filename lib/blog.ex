@@ -50,7 +50,7 @@ defmodule Blog do
     find_posts_between({year, month, 1}, {year, month, days_in_month})
   end
 
-  def find_posts_for_date(year: year, month: month, day: day) do
+  def find_posts_for_date(year, month, day) do
     find_posts_between({year, month, day}, {year, month, day})
   end
 
