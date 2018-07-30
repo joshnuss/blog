@@ -13,6 +13,14 @@ defmodule Blog.Schema do
     @desc "A unique identifier, usually based on the title"
     field :permalink, :string
 
+    @desc "The post's URL"
+    field :url, :string do
+      resolve fn _args, %{source: post} ->
+        published_at = post.published_at
+        {:ok, "http://foo.bar/posts/#{published_at.year}/#{published_at.month}/#{post.permalink}"}
+      end
+    end
+
     @desc "The post's subheading"
     field :subtitle, :string
 
