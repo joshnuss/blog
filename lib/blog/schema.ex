@@ -25,7 +25,7 @@ defmodule Blog.Schema do
     field :subtitle, :string
 
     @desc "A list of tags describing the topics"
-    field :tags, %Absinthe.Type.List{of_type: :string}
+    field :tags, list_of(:string)
 
     @desc "The main content of the post"
     field :body, :string
