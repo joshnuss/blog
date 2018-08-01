@@ -46,33 +46,19 @@ defmodule Blog.Schema do
       end
     end
 
-    @desc "Find posts by year"
-    field :posts_by_year, list_of(:post) do
+    @desc "Find a post"
+    field :find, :post do
 
-      @desc "The year to filter by"
-      arg :year, :integer
+      @desc "The permalink of the post"
+      arg :permalink, :string
 
       resolve fn args, _ ->
-        {:ok, Blog.find_posts_for_year(args.year)}
+        {:ok, Repo.get_by(Post, args)}
       end
     end
 
-    @desc "Find posts by month"
-    field :posts_by_month, list_of(:post) do
-
-      @desc "The year to filter by"
-      arg :year, :integer
-
-      @desc "The month to filter by"
-      arg :month, :integer
-
-      resolve fn args, _ ->
-        {:ok, Blog.find_posts_for_month(args.year, args.month)}
-      end
-    end
-
-    @desc "Find posts by date"
-    field :posts_by_date, list_of(:post) do
+    @desc "Search for posts"
+    field :search, list_of(:post) do
 
       @desc "The year to filter by"
       arg :year, :integer
@@ -82,6 +68,12 @@ defmodule Blog.Schema do
 
       @desc "The day to filter by"
       arg :day, :integer
+
+      @desc "The tags to filter by"
+      arg :tags, list_of(:string)
+
+      @desc "The search terms to filter by"
+      arg :terms, :string
 
       resolve fn args, _ ->
         {:ok, Blog.find_posts_for_date(args.year, args.month, args.day)}
