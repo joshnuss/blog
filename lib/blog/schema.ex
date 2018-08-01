@@ -7,6 +7,9 @@ defmodule Blog.Schema do
 
   @desc "A blog post"
   object :post do
+    @desc "The post's id"
+    field :id, :id
+
     @desc "The post's heading"
     field :title, :string
 
