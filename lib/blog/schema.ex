@@ -91,8 +91,18 @@ defmodule Blog.Schema do
       arg :body, non_null(:string)
 
       resolve fn _parent, args, _context ->
-        Blog.create_post(args)
+        case Blog.create_post(args) do
+          {:error, changeset} ->
+            {:error, format_errors(changeset.errors)}
+          {:ok, post} -> {:ok, post}
+        end
       end
     end
+  end
+
+  defp format_errors(errors) do
+    Enum.map(errors, fn {_field, {message, _}} ->
+      message
+    end)
   end
 end
