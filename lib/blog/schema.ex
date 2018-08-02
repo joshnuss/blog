@@ -80,4 +80,19 @@ defmodule Blog.Schema do
       end
     end
   end
+
+  mutation do
+    @desc "Create a post"
+    field :create_post, type: :post do
+      arg :title, non_null(:string)
+      arg :permalink, :string
+      arg :subtitle, :string
+      arg :tags, list_of(:string)
+      arg :body, non_null(:string)
+
+      resolve fn _parent, args, _context ->
+        Blog.create_post(args)
+      end
+    end
+  end
 end
