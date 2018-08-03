@@ -98,7 +98,7 @@ defmodule Blog.Schema do
 
     @desc "Update a post"
     field :update, type: :post do
-      arg(:id, :id)
+      arg(:post_id, :id)
       arg(:title, :string)
       arg(:permalink, :string)
       arg(:subtitle, :string)
@@ -106,34 +106,34 @@ defmodule Blog.Schema do
       arg(:body, :string)
 
       resolve(fn _parent, args, _context ->
-        format_response(Blog.update(args.id, args))
+        format_response(Blog.update(args.post_id, args))
       end)
     end
 
     @desc "Publish a post"
     field :publish, type: :post do
-      arg(:id, :id)
+      arg(:post_id, :id)
 
       resolve(fn _parent, args, _context ->
-        format_response(Blog.publish(args.id))
+        format_response(Blog.publish(args.post_id))
       end)
     end
 
     @desc "Unpublish a post"
     field :unpublish, type: :post do
-      arg(:id, :id)
+      arg(:post_id, :id)
 
       resolve(fn _parent, args, _context ->
-        format_response(Blog.unpublish(args.id))
+        format_response(Blog.unpublish(args.post_id))
       end)
     end
 
     @desc "Delete a post"
     field :delete, type: :post do
-      arg(:id, :id)
+      arg(:post_id, :id)
 
       resolve(fn _parent, args, _context ->
-        format_response(Blog.delete(args.id))
+        format_response(Blog.delete(args.post_id))
       end)
     end
   end
