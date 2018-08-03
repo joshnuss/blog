@@ -91,7 +91,7 @@ defmodule Blog.Schema do
       arg :body, non_null(:string)
 
       resolve fn _parent, args, _context ->
-        handle_response(Blog.create_post(args))
+        format_response(Blog.create_post(args))
       end
     end
 
@@ -100,7 +100,7 @@ defmodule Blog.Schema do
       arg :id, :id
 
       resolve fn _parent, args, _context ->
-        handle_response(Blog.publish(args.id))
+        format_response(Blog.publish(args.id))
       end
     end
 
@@ -109,7 +109,7 @@ defmodule Blog.Schema do
       arg :id, :id
 
       resolve fn _parent, args, _context ->
-        handle_response(Blog.unpublish(args.id))
+        format_response(Blog.unpublish(args.id))
       end
     end
 
@@ -118,16 +118,16 @@ defmodule Blog.Schema do
       arg :id, :id
 
       resolve fn _parent, args, _context ->
-        handle_response(Blog.delete(args.id))
+        format_response(Blog.delete(args.id))
       end
     end
   end
 
-  defp handle_response({:error, changeset}) do
+  defp format_response({:error, changeset}) do
     {:error, format_errors(changeset.errors)}
   end
 
-  defp handle_response({:ok, post}) do
+  defp format_response({:ok, post}) do
     {:ok, post}
   end
 
