@@ -98,6 +98,20 @@ defmodule Blog.Schema do
       end
     end
 
+    @desc "Update a post"
+    field :update, type: :post do
+      arg :id, :id
+      arg :title, :string
+      arg :permalink, :string
+      arg :subtitle, :string
+      arg :tags, list_of(:string)
+      arg :body, :string
+
+      resolve fn _parent, args, _context ->
+        format_response(Blog.update(args.id, args))
+      end
+    end
+
     @desc "Publish a post"
     field :publish, type: :post do
       arg :id, :id
