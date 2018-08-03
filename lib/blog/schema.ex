@@ -30,7 +30,7 @@ defmodule Blog.Schema do
     field(:tags, list_of(:string))
 
     @desc "The main content of the post"
-    field(:body, :string)
+    field(:content, :string)
 
     @desc "The date/time the post was published"
     field(:published_at, :naive_datetime)
@@ -91,7 +91,7 @@ defmodule Blog.Schema do
       arg(:permalink, :string)
       arg(:subtitle, :string)
       arg(:tags, list_of(:string))
-      arg(:body, non_null(:string))
+      arg(:content, non_null(:string))
 
       resolve(fn _parent, args, _context ->
         format_response(Blog.create_post(args))
@@ -105,7 +105,7 @@ defmodule Blog.Schema do
       arg(:permalink, :string)
       arg(:subtitle, :string)
       arg(:tags, list_of(:string))
-      arg(:body, :string)
+      arg(:content, :string)
 
       resolve(fn _parent, args, _context ->
         format_response(Blog.update(args.post_id, args))

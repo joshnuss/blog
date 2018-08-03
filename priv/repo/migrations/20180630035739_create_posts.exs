@@ -7,7 +7,7 @@ defmodule Blog.Repo.Migrations.CreatePosts do
       add(:permalink, :string, null: false)
       add(:subtitle, :string)
       add(:tags, {:array, :string})
-      add(:body, :text)
+      add(:content, :text)
       add(:published_at, :naive_datetime)
 
       timestamps()
