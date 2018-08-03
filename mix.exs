@@ -42,7 +42,8 @@ defmodule Blog.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:absinthe, github: "absinthe-graphql/absinthe", override: true},
-      {:absinthe_plug, "~> 1.4"}
+      {:absinthe_plug, "~> 1.4"},
+      {:earmark, "~> 1.2"}
     ]
   end
 
