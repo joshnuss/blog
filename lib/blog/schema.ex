@@ -50,12 +50,15 @@ defmodule Blog.Schema do
     end
 
     @desc "Find a post"
-    field :find, :post do
+    field :post, :post do
       @desc "The permalink of the post"
       arg(:permalink, :string)
 
+      @desc "The id of the post"
+      arg(:id, :id)
+
       resolve(fn args, _ ->
-        {:ok, Repo.get_by(Post, args)}
+        {:ok, Blog.find_post(args)}
       end)
     end
 
