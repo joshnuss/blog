@@ -18,6 +18,7 @@ defmodule Blog do
   def update(post_id, attrs) when is_number(post_id) or is_binary(post_id) do
     find_post(id: post_id) |> update(attrs)
   end
+
   def update(post, attrs) do
     post
     |> Post.update(attrs)
@@ -35,6 +36,7 @@ defmodule Blog do
   def delete(post_id) when is_number(post_id) or is_binary(post_id) do
     find_post(id: post_id) |> delete()
   end
+
   def delete(post) do
     Repo.delete(post)
   end
@@ -65,7 +67,7 @@ defmodule Blog do
         p in Post,
         where: p.published_at >= ^from_time and p.published_at <= ^to_time,
         order_by: [desc: p.published_at],
-        select: p,
+        select: p
       )
 
     Repo.all(query)

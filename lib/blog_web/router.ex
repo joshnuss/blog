@@ -20,14 +20,16 @@ defmodule BlogWeb.Router do
     get("/", PageController, :index)
   end
 
-  forward "/graphql", Absinthe.Plug,
-    schema: Blog.Schema
+  forward("/graphql", Absinthe.Plug, schema: Blog.Schema)
 
-  if Mix.env == :dev do
-    forward "/graphiql",
+  if Mix.env() == :dev do
+    forward(
+      "/graphiql",
       Absinthe.Plug.GraphiQL,
       schema: Blog.Schema
+    )
   end
+
   # Other scopes may use custom stacks.
   # scope "/api", BlogWeb do
   #   pipe_through :api
