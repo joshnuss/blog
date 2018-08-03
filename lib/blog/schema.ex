@@ -35,6 +35,9 @@ defmodule Blog.Schema do
 
     @desc "The date/time the post was published"
     field :published_at, :naive_datetime
+
+    @desc "The date/time the post was last updated"
+    field :updated_at, :naive_datetime
   end
 
   query do
