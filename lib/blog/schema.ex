@@ -19,8 +19,7 @@ defmodule Blog.Schema do
     @desc "The post's URL"
     field :url, :string do
       resolve(fn _args, %{source: post} ->
-        published_at = post.published_at
-        {:ok, "http://foo.bar/posts/#{published_at.year}/#{published_at.month}/#{post.permalink}"}
+        {:ok, Blog.post_url(post)}
       end)
     end
 

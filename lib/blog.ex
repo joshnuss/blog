@@ -45,6 +45,15 @@ defmodule Blog do
     Repo.get_by(Post, opts)
   end
 
+  def post_url(post) do
+    case post.published_at do
+      nil ->
+        "http://foo.bar/posts/drafts/#{post.permalink}"
+      published_at ->
+        "http://foo.bar/posts/#{published_at.year}/#{published_at.month}/#{post.permalink}"
+    end
+  end
+
   def find_posts_for_year(year) do
     find_posts_between({year, 1, 1}, {year, 12, 31})
   end
