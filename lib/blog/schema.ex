@@ -91,11 +91,7 @@ defmodule Blog.Schema do
       arg :body, non_null(:string)
 
       resolve fn _parent, args, _context ->
-        case Blog.create_post(args) do
-          {:error, changeset} ->
-            {:error, format_errors(changeset.errors)}
-          {:ok, post} -> {:ok, post}
-        end
+        handle_response(Blog.create_post(args))
       end
     end
 
@@ -104,13 +100,17 @@ defmodule Blog.Schema do
       arg :id, :id
 
       resolve fn _parent, args, _context ->
-        case Blog.publish(args.id) do
-          {:error, changeset} ->
-            {:error, format_errors(changeset.errors)}
-          {:ok, post} -> {:ok, post}
-        end
+        handle_response(Blog.publish(args.id))
       end
     end
+  end
+
+  defp handle_response({:error, changeset}) do
+    {:error, format_errors(changeset.errors)}
+  end
+
+  defp handle_response({:ok, post}) do
+    {:ok, post}
   end
 
   defp format_errors(errors) do
