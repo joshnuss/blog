@@ -112,6 +112,15 @@ defmodule Blog.Schema do
         handle_response(Blog.unpublish(args.id))
       end
     end
+
+    @desc "Delete a post"
+    field :delete, type: :post do
+      arg :id, :id
+
+      resolve fn _parent, args, _context ->
+        handle_response(Blog.delete(args.id))
+      end
+    end
   end
 
   defp handle_response({:error, changeset}) do

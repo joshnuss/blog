@@ -32,6 +32,9 @@ defmodule Blog do
     update(post, %{published_at: nil})
   end
 
+  def delete(post_id) when is_number(post_id) or is_binary(post_id) do
+    find_post(id: post_id) |> delete()
+  end
   def delete(post) do
     Repo.delete(post)
   end
