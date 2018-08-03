@@ -8,6 +8,7 @@ defmodule Blog.Repo.Migrations.CreatePosts do
       add(:subtitle, :string)
       add(:tags, {:array, :string})
       add(:content, :text)
+      add(:content_html, :text)
       add(:published_at, :naive_datetime)
 
       timestamps()

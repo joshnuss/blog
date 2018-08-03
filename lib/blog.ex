@@ -12,7 +12,10 @@ defmodule Blog do
   import Ecto.Query, except: [update: 2]
 
   def create_post(data) do
-    Post.create(data) |> Repo.insert()
+    data
+    |> convert_markdown
+    |> Post.create()
+    |> Repo.insert()
   end
 
   def update(post_id, attrs) when is_number(post_id) or is_binary(post_id) do
@@ -21,6 +24,7 @@ defmodule Blog do
 
   def update(post, attrs) do
     post
+    |> convert_markdown
     |> Post.update(attrs)
     |> Repo.update()
   end
@@ -80,5 +84,15 @@ defmodule Blog do
       )
 
     Repo.all(query)
+  end
+
+  defp convert_markdown(data=%{content: content}) do
+    html = Earmark.as_html!(content)
+
+    Map.put(data, :content_html, html)
+  end
+
+  defp convert_markdown(data) do
+    data
   end
 end

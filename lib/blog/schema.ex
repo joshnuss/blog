@@ -29,8 +29,11 @@ defmodule Blog.Schema do
     @desc "A list of tags describing the topics"
     field(:tags, list_of(:string))
 
-    @desc "The main content of the post"
+    @desc "The markdown content of the post"
     field(:content, :string)
+
+    @desc "The HTML content of the post"
+    field(:content_html, :string)
 
     @desc "The date/time the post was published"
     field(:published_at, :naive_datetime)
