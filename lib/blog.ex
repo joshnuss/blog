@@ -9,12 +9,15 @@ defmodule Blog do
 
   alias Blog.{Repo, Post}
 
-  import Ecto.Query
+  import Ecto.Query, except: [update: 2]
 
   def create_post(data) do
     Post.create(data) |> Repo.insert()
   end
 
+  def update(post_id, attrs) when is_number(post_id) or is_binary(post_id) do
+    find_post(id: post_id) |> update(attrs)
+  end
   def update(post, attrs) do
     post
     |> Post.update(attrs)
@@ -22,15 +25,11 @@ defmodule Blog do
   end
 
   def publish(post) do
-    post
-    |> Post.update(post, %{published_at: NaiveDateTime.utc_now()})
-    |> Repo.update()
+    update(post, %{published_at: NaiveDateTime.utc_now()})
   end
 
   def unpublish(post) do
-    post
-    |> Post.update(post, %{published_at: nil})
-    |> Repo.update()
+    update(post, %{published_at: nil})
   end
 
   def delete(post) do

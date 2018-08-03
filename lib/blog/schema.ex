@@ -83,7 +83,7 @@ defmodule Blog.Schema do
 
   mutation do
     @desc "Create a post"
-    field :create_post, type: :post do
+    field :create, type: :post do
       arg :title, non_null(:string)
       arg :permalink, :string
       arg :subtitle, :string
@@ -92,6 +92,19 @@ defmodule Blog.Schema do
 
       resolve fn _parent, args, _context ->
         case Blog.create_post(args) do
+          {:error, changeset} ->
+            {:error, format_errors(changeset.errors)}
+          {:ok, post} -> {:ok, post}
+        end
+      end
+    end
+
+    @desc "Publish a post"
+    field :publish, type: :post do
+      arg :id, :id
+
+      resolve fn _parent, args, _context ->
+        case Blog.publish(args.id) do
           {:error, changeset} ->
             {:error, format_errors(changeset.errors)}
           {:ok, post} -> {:ok, post}
